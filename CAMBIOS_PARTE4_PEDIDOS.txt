@@ -1,0 +1,162 @@
+PARTE 4 - GESTION DE PEDIDOS Y DETALLES
+=======================================
+
+Archivos incluidos en esta carpeta:
+
+- src/tpi/progra2/entities/Pedido.java
+- src/tpi/progra2/entities/DetallePedido.java
+- src/tpi/progra2/services/PedidoService.java
+
+Origen de esta parte:
+
+- Parte creada para completar el modulo de pedidos y detalles segun la consigna.
+
+
+CAMBIOS Y DECISIONES REALIZADAS
+===============================
+
+1. Pedido hereda de Base
+
+Pedido usa la clase comun:
+
+tpi.progra2.entities.Base
+
+Campos principales:
+
+- fecha
+- estado
+- total
+- formaPago
+- usuario
+- detalles
+
+
+2. DetallePedido hereda de Base
+
+DetallePedido usa:
+
+- cantidad
+- subtotal
+- producto
+
+El subtotal se calcula como:
+
+cantidad * producto.getPrecio()
+
+
+3. Pedido implementa Calculable
+
+Pedido implementa:
+
+tpi.progra2.interfaces.Calculable
+
+Metodo obligatorio:
+
+calcularTotal()
+
+Este metodo suma los subtotales de todos los detalles activos.
+
+
+4. Metodo addDetallePedido(...)
+
+Se implemento:
+
+addDetallePedido(int cantidad, Producto producto)
+
+Hace:
+
+- valida cantidad > 0
+- valida producto no nulo
+- valida producto no eliminado
+- valida producto disponible
+- valida stock suficiente
+- crea el DetallePedido
+- calcula subtotal
+- descuenta stock
+- recalcula total
+
+
+5. Busqueda y baja de detalle por producto
+
+Se implemento:
+
+findDetallePedidoByProducto(Producto producto)
+deleteDetallePedidoByProducto(Producto producto)
+
+Nota:
+En el PDF aparece escrito como findeDetallePedidoByProducto, pero se uso findDetallePedidoByProducto porque es el nombre correcto en ingles.
+
+
+6. PedidoService
+
+PedidoService maneja la coleccion de pedidos en memoria.
+
+Incluye:
+
+- crearPedido(...)
+- iniciarPedido(...)
+- guardarPedido(...)
+- listarPedidos()
+- listarPedidosPorUsuario(...)
+- buscarPedidoPorId(...)
+- actualizarEstadoYFormaPago(...)
+- eliminarPedido(...)
+
+
+7. Menu de pedidos
+
+Las opciones de pedidos estan integradas en:
+
+src/tpi/progra2/menus/MenuPrincipal.java
+
+Opciones:
+
+- Listar pedidos.
+- Crear pedido con detalles.
+- Actualizar estado / forma de pago.
+- Eliminar pedido.
+
+
+QUE NECESITA PARA COMPILAR
+==========================
+
+Esta parte necesita que existan en el proyecto final:
+
+- src/tpi/progra2/entities/Base.java
+- src/tpi/progra2/entities/Usuario.java
+- src/tpi/progra2/entities/Producto.java
+- src/tpi/progra2/enums/Estado.java
+- src/tpi/progra2/enums/FormaPago.java
+- src/tpi/progra2/interfaces/Calculable.java
+- src/tpi/progra2/exceptions/NegocioException.java
+
+
+FUNCIONES QUE CUMPLE
+====================
+
+- Crear pedido asociado a un usuario.
+- Validar que el usuario no sea nulo ni eliminado.
+- Agregar detalles al pedido.
+- Validar cantidad mayor a cero.
+- Validar stock suficiente.
+- Calcular subtotal por detalle.
+- Calcular total del pedido.
+- Listar pedidos activos.
+- Filtrar pedidos por usuario.
+- Actualizar estado y forma de pago.
+- Eliminar pedido con baja logica.
+
+
+PENDIENTE RECOMENDADO
+=====================
+
+Mejorar la cancelacion cuando falla la creacion de un pedido con varios detalles.
+
+Situacion actual:
+Si se agrega un primer detalle y luego falla el segundo, el pedido no se guarda,
+pero el stock del primer producto ya pudo haber sido descontado.
+
+Mejora recomendada:
+Si falla la creacion del pedido, devolver el stock de todos los detalles agregados
+antes de cancelar.
+
