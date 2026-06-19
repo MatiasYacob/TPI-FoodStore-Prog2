@@ -1,0 +1,133 @@
+PARTE 2 - GESTION DE PRODUCTOS
+==============================
+
+Archivos incluidos en esta carpeta:
+
+- src/tpi/progra2/entities/Producto.java
+- src/tpi/progra2/services/ProductoService.java
+
+Origen de esta parte:
+
+- gestionProductos.zip
+
+Archivos originales usados como referencia:
+
+- entities/Producto.java
+- services/ProductoService.java
+- ui/MenuProductos.java
+
+
+CAMBIOS REALIZADOS RESPECTO AL ORIGINAL
+=======================================
+
+1. Cambio de paquete
+
+Antes:
+
+package entities;
+package services;
+package ui;
+
+Ahora:
+
+package tpi.progra2.entities;
+package tpi.progra2.services;
+
+Esto se hizo para integrar el codigo en un unico proyecto.
+
+
+2. Uso de Base comun
+
+Producto sigue heredando de Base, pero ahora usa la Base compartida:
+
+tpi.progra2.entities.Base
+
+No se debe copiar la Base original del ZIP de productos.
+
+
+3. Relacion con Categoria
+
+Antes Producto guardaba solo:
+
+private Long categoria;
+
+Ahora Producto guarda:
+
+private Categoria categoria;
+
+Motivo:
+La consigna pide asociacion con categoria. Guardar el objeto Categoria permite validar que exista y no este eliminada.
+
+
+4. ProductoService recibe CategoriaService
+
+Antes ProductoService trabajaba solo con productos y tenia un placeholder para categoria.
+
+Ahora el constructor es:
+
+ProductoService(CategoriaService categoriaService)
+
+Motivo:
+Al crear o editar un producto, se busca la categoria real por ID usando CategoriaService.
+
+
+5. Validaciones conservadas
+
+Se mantienen:
+
+- nombre no vacio
+- descripcion no vacia
+- precio >= 0
+- stock >= 0
+- categoria valida
+
+
+6. Menu de productos
+
+El archivo MenuProductos.java original no se dejo como archivo separado.
+
+Sus opciones se integraron en:
+
+src/tpi/progra2/menus/MenuPrincipal.java
+
+Motivo:
+El menu final comparte los mismos services y las mismas colecciones en memoria.
+
+
+QUE NECESITA PARA COMPILAR
+==========================
+
+Esta parte necesita que existan en el proyecto final:
+
+- src/tpi/progra2/entities/Base.java
+- src/tpi/progra2/entities/Categoria.java
+- src/tpi/progra2/services/CategoriaService.java
+- src/tpi/progra2/exceptions/DatoInvalidoException.java
+- src/tpi/progra2/exceptions/EntidadNoEncontradaException.java
+
+
+FUNCIONES QUE CUMPLE
+====================
+
+- Listar productos activos.
+- Filtrar productos por categoria.
+- Crear producto.
+- Validar precio.
+- Validar stock.
+- Validar categoria existente.
+- Editar precio, stock y categoria.
+- Eliminar producto con baja logica.
+
+
+PENDIENTE RECOMENDADO
+=====================
+
+Ampliar editarProducto para modificar tambien:
+
+- nombre
+- descripcion
+- imagen
+- disponible
+
+Actualmente edita precio, stock y categoria.
+
