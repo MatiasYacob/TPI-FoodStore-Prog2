@@ -1,89 +1,59 @@
-# TPI Food Store - Programacion 2
+# Food Store - Sistema de Gestion de Pedidos
 
-Sistema de consola en Java para la gestion de pedidos de comida. El proyecto trabaja con Programacion Orientada a Objetos, colecciones en memoria, validaciones, excepciones propias y menus CRUD.
+Food Store es una aplicacion de consola desarrollada en Java para administrar un negocio de comidas. Permite gestionar categorias, productos, usuarios y pedidos usando Programacion Orientada a Objetos, colecciones en memoria, validaciones y manejo de excepciones.
 
-## Estado del proyecto
+## Funcionalidades
 
-El repositorio se esta armando por partes para que cada integrante suba su modulo:
+- Gestion de categorias.
+- Gestion de productos asociados a categorias.
+- Gestion de usuarios.
+- Creacion de pedidos con uno o mas detalles.
+- Calculo automatico de subtotales y total del pedido.
+- Actualizacion de estado y forma de pago.
+- Baja logica de registros mediante el atributo `eliminado`.
+- Validacion de datos ingresados por consola.
+- Manejo de errores con excepciones propias.
 
-| Parte | Modulo | Responsable |
-| --- | --- | --- |
-| 1 | Gestion de categorias | Integrante A |
-| 2 | Gestion de productos | Integrante B |
-| 3 | Gestion de usuarios | Integrante C |
-| 4 | Gestion de pedidos y detalles | Integrante D |
+## Tecnologias
 
-## Funcionalidades esperadas
+- Java
+- NetBeans
+- Aplicacion de consola
+- Colecciones en memoria
+- Programacion Orientada a Objetos
 
-- Gestionar categorias.
-- Gestionar productos asociados a categorias.
-- Gestionar usuarios.
-- Crear pedidos con detalles.
-- Calcular subtotales y total del pedido.
-- Actualizar estado y forma de pago.
-- Realizar bajas logicas.
-- Validar datos de entrada.
-- Manejar errores con excepciones propias.
-
-## Estructura del proyecto
+## Estructura
 
 ```text
 src/
-└── tpi/
-    └── progra2/
-        ├── TPIProgra2.java
-        ├── entities/
-        ├── enums/
-        ├── exceptions/
-        ├── interfaces/
-        ├── menus/
-        └── services/
++-- tpi/
+    +-- progra2/
+        +-- TPIProgra2.java
+        +-- entities/
+        +-- enums/
+        +-- exceptions/
+        +-- interfaces/
+        +-- menus/
+        +-- services/
 ```
 
-## Base comun
+## Entidades principales
 
-La base comun incluye:
+- `Categoria`
+- `Producto`
+- `Usuario`
+- `Pedido`
+- `DetallePedido`
 
-- `TPIProgra2.java`
-- `MenuPrincipal.java`
-- `Base.java`
-- `Calculable.java`
-- `Rol.java`
-- `Estado.java`
-- `FormaPago.java`
-- excepciones comunes
+Todas las entidades heredan de `Base`, que contiene:
 
-## Parte 4 - Pedidos y detalles
-
-Esta parte incluye:
-
-- `Pedido.java`
-- `DetallePedido.java`
-- `PedidoService.java`
-
-Responsabilidades principales:
-
-- Crear pedidos asociados a usuarios.
-- Agregar productos al pedido mediante detalles.
-- Calcular subtotal por detalle.
-- Calcular total del pedido usando `Calculable`.
-- Validar usuario, producto, cantidad y stock.
-- Actualizar estado y forma de pago.
-- Eliminar pedidos con baja logica.
-
-## Como ejecutar
-
-1. Abrir el proyecto en NetBeans.
-2. Verificar que la clase principal sea:
-
-```text
-tpi.progra2.TPIProgra2
-```
-
-3. Ejecutar **Clean and Build**.
-4. Ejecutar el proyecto.
+- `id`
+- `eliminado`
+- `createdAt`
 
 ## Menu principal
+
+Al ejecutar el programa se muestra el siguiente menu:
 
 ```text
 === SISTEMA DE PEDIDOS (FOOD STORE) ===
@@ -94,34 +64,58 @@ tpi.progra2.TPIProgra2
 0. Salir
 ```
 
-## Orden recomendado de integracion
+Cada opcion abre un submenu con operaciones de alta, listado, modificacion y baja logica.
 
-1. Subir base comun.
-2. Subir gestion de categorias.
-3. Subir gestion de productos.
-4. Subir gestion de usuarios.
-5. Subir gestion de pedidos.
-6. Probar el flujo completo desde consola.
+## Como ejecutar el proyecto
 
-## Prueba sugerida
+1. Clonar el repositorio:
 
-Para verificar el sistema completo:
+```bash
+git clone https://github.com/MatiasYacob/TPI-FoodStore-Prog2.git
+```
+
+2. Abrir el proyecto en NetBeans.
+
+3. Verificar que la clase principal sea:
+
+```text
+tpi.progra2.TPIProgra2
+```
+
+4. Ejecutar **Clean and Build**.
+
+5. Ejecutar el proyecto desde NetBeans.
+
+## Flujo de prueba recomendado
+
+Para probar el sistema completo:
 
 1. Crear una categoria.
 2. Crear un producto asociado a esa categoria.
 3. Crear un usuario.
-4. Crear un pedido con uno o mas detalles.
+4. Crear un pedido seleccionando usuario, forma de pago, producto y cantidad.
 5. Listar pedidos.
-6. Verificar que:
+6. Verificar que el subtotal y el total se calculen correctamente.
+
+Ejemplo:
 
 ```text
-subtotal = cantidad * precio
+subtotal = cantidad * precio del producto
 total = suma de subtotales
 ```
 
+## Reglas principales
+
+- No se puede crear un producto con precio negativo.
+- No se puede crear un producto con stock negativo.
+- No se puede crear un pedido sin usuario.
+- No se puede crear un detalle con cantidad menor o igual a cero.
+- No se deben usar usuarios eliminados para nuevos pedidos.
+- Los pedidos y demas entidades se eliminan mediante baja logica.
+
 ## Notas
 
-- El almacenamiento es en memoria usando colecciones.
-- No se utiliza base de datos.
-- Todas las bajas son logicas mediante el atributo `eliminado`.
-- No se deben copiar los paquetes originales de los ZIP separados; el paquete final es `tpi.progra2`.
+- El proyecto no utiliza base de datos.
+- Los datos se guardan en memoria mientras el programa esta en ejecucion.
+- Al cerrar el programa, los datos cargados se pierden.
+- El paquete principal del proyecto es `tpi.progra2`.
