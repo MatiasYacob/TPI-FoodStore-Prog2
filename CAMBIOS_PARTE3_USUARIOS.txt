@@ -1,0 +1,133 @@
+PARTE 3 - GESTION DE USUARIOS
+=============================
+
+Archivos incluidos en esta carpeta:
+
+- src/tpi/progra2/entities/Usuario.java
+- src/tpi/progra2/services/UsuarioService.java
+
+Origen de esta parte:
+
+- TPI-parte3.zip
+
+Archivos originales usados como referencia:
+
+- entities/Usuario.java
+- services/UsuarioService.java
+- ui/MenuUsuarios.java
+- enums/Rol.java
+
+
+CAMBIOS REALIZADOS RESPECTO AL ORIGINAL
+=======================================
+
+1. Cambio de paquete
+
+Antes:
+
+package entities;
+package services;
+package ui;
+package enums;
+package exception;
+
+Ahora:
+
+package tpi.progra2.entities;
+package tpi.progra2.services;
+
+Esto permite que Usuarios compile junto con Categorias, Productos y Pedidos.
+
+
+2. Uso de Base comun
+
+Usuario sigue heredando de Base, pero ahora usa:
+
+tpi.progra2.entities.Base
+
+No se debe copiar la Base original del ZIP de usuarios.
+
+
+3. Uso de Rol comun
+
+Antes usaba:
+
+enums.Rol
+
+Ahora usa:
+
+tpi.progra2.enums.Rol
+
+Motivo:
+El enum Rol queda centralizado en el proyecto final.
+
+
+4. Excepciones unificadas
+
+Antes usaba:
+
+exception.DatoInvalidoException
+exception.EntidadNoEncontradaException
+exception.MailDuplicadoException
+
+Ahora usa:
+
+tpi.progra2.exceptions.DatoInvalidoException
+tpi.progra2.exceptions.EntidadNoEncontradaException
+tpi.progra2.exceptions.MailDuplicadoException
+
+
+5. Metodo importante para pedidos
+
+Se conserva:
+
+buscarUsuarioActivoPorId(Long id)
+
+Motivo:
+La parte de pedidos necesita seleccionar un usuario existente y no eliminado.
+
+
+6. Menu de usuarios
+
+El archivo MenuUsuarios.java original no se dejo como archivo separado.
+
+Sus opciones se integraron en:
+
+src/tpi/progra2/menus/MenuPrincipal.java
+
+Motivo:
+El sistema final debe tener un menu principal unico.
+
+
+QUE NECESITA PARA COMPILAR
+==========================
+
+Esta parte necesita que existan en el proyecto final:
+
+- src/tpi/progra2/entities/Base.java
+- src/tpi/progra2/enums/Rol.java
+- src/tpi/progra2/exceptions/DatoInvalidoException.java
+- src/tpi/progra2/exceptions/EntidadNoEncontradaException.java
+- src/tpi/progra2/exceptions/MailDuplicadoException.java
+
+
+FUNCIONES QUE CUMPLE
+====================
+
+- Listar usuarios activos.
+- Crear usuario.
+- Validar datos obligatorios.
+- Validar formato basico de mail.
+- Validar mail unico.
+- Buscar usuario activo por ID.
+- Editar usuario.
+- Eliminar usuario con baja logica.
+
+
+PENDIENTE RECOMENDADO
+=====================
+
+Confirmar con el equipo si la contrasena debe ser obligatoria en el menu.
+
+El UML la incluye, pero algunas consignas resumidas solo nombran nombre, apellido, mail y celular.
+
